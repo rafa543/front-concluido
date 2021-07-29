@@ -11,6 +11,7 @@
 
     <v-col  cols="12" md="12" class="mt-n2">
         <v-text-field
+        v-model="title"
         dense
         class="input-serch"
         label="Titulo"
@@ -21,6 +22,7 @@
 
     <v-col cols="12" md="12" class="d-flex justify-end">
         <v-btn
+        @click="clear"
             color="#F9A825"
             class="white--text mr-2"
         >
@@ -74,7 +76,7 @@
         </v-data-table>
 
         
-        
+
       </v-card>
     </v-col>
   </v-row>
@@ -120,15 +122,11 @@ export default {
       this.retrieveTutorials();
     },
 
-    teste() {
-      alert('teste')
-    },
-
     searchTitle() {
       TarefaDataService.findByTitle(this.title)
         .then((response) => {
-          this.tutorials = response.data.map(this.getDisplayTutorial);
           console.log(response.data);
+          this.tutorials = response.data.map(this.getDisplayTutorial);
         })
         .catch((e) => {
           console.log(e);
@@ -150,6 +148,7 @@ export default {
     },
 
     getDisplayTutorial(tutorial) {
+      console.log(tutorial.dataCriacao)
       let date = new Date(tutorial.dataCriacao)
       let dataCriacao = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
       let status
@@ -169,6 +168,11 @@ export default {
         dataCriacao
       };
     },
+
+    clear() {
+      this.title = ''
+      this.retrieveTutorials();
+    }
   },
 
   mounted() {

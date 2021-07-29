@@ -58,6 +58,7 @@
             -->
             <v-col cols="12" class="d-flex justify-space-between">
                 <v-btn
+                to="/"
                 color="#ECEFF1"
                 class="black--text mr-2"
                 >
